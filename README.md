@@ -2,18 +2,17 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-
 todo:
 
-新增smart框，匹配类型自动生成完整命令
+~~新增便捷框~~，匹配以下类型自动生成完整命令
 
-    bash
+ ~~bash~~
 
-    python
+ ~~python~~
 
-    perl
+ ~~perl~~
 
-    powershell
+ ~~powershell~~
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 
