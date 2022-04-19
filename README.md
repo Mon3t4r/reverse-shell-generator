@@ -5,15 +5,15 @@
 
 todo:
 
- 新增smart框，匹配类型自动生成完整命令
+新增smart框，匹配类型自动生成完整命令
 
-bash
+    bash
 
-python
+    python
 
-perl
+    perl
 
-powershell
+    powershell
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 
