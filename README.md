@@ -8,11 +8,17 @@ todo:
 
  ~~bash~~
 
+![](image/README/1650383004445.png)
+
  ~~python~~
+
+![](image/README/1650383615380.png)
 
  ~~perl~~
 
- ~~powershell~~
+![](image/README/1650383653134.png)
+
+ ~~powershell~~   bug待修复
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 
