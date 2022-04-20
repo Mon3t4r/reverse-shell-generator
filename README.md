@@ -18,7 +18,9 @@ todo:
 
 ![](image/README/1650383653134.png)
 
- ~~powershell~~   bug待修复
+ ~~powershell~~   
+
+![](image/README/1650419035567.png)
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 
