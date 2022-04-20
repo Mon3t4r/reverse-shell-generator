@@ -8,21 +8,27 @@ todo:
 
  ~~bash~~
 
-![](image/README/1650383004445.png)
+![](image/README/1650421484629.png)
+
+![](image/README/1650421504810.png)
 
  ~~python~~
 
-![](image/README/1650383615380.png)
+![img](image/README/1650421563852.png)
+
+![](image/README/1650421614762.png)
 
  ~~perl~~
 
-![](image/README/1650383653134.png)
+![](image/README/1650421741856.png)
 
- ~~powershell~~   
+![](image/README/1650421717972.png)
 
-![](image/README/1650419035567.png)
+ ~~powershell~~
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
+![](image/README/1650421772645.png)
+
+![](image/README/1650422038730.png)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
